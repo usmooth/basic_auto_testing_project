@@ -1,0 +1,39 @@
+name: Automated QA and AI Anomaly Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 2 * * *' 
+
+jobs:
+  test-and-detect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Libraries
+        run: |
+          pip install pytest selenium pandas numpy scikit-learn matplotlib
+          
+      - name: Run UI Automation Tests (Data Generation)
+        run: pytest ui_test.py -v
+
+      - name: Run AI Anomaly Detection
+        run: python anomaly_detection.py
+
+      - name: Save Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-reports
+          path: |
+            server_metrics_log.csv
+            pipeline_3d_result.png
+          retention-days: 7
