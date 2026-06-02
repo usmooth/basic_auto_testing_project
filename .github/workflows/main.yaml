@@ -3,6 +3,7 @@ name: Automated QA and AI Anomaly Pipeline
 on:
   push:
     branches: [ main, master ]
+  workflow dispatch:
   schedule:
     - cron: '0 2 * * *' 
 
