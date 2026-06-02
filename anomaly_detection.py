@@ -9,7 +9,7 @@ df = pd.read_csv("server_metrics_log.csv")
 features = ["cpu_usage_percent" , "ram_usage_percent" , "response_time_ms"]
 X = df[features]
 
-model = IsolationForest( contamination = auto , random_state = 36)
+model = IsolationForest( contamination = 'auto' , random_state = 36)
 
 df["anomaly_prediction"] = model.fit_predict(X)
 anomalies = df[df["anomaly_prediction"] == -1]
