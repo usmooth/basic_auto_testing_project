@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Libraries
         run: |
-          pip install pytest selenium pandas numpy scikit-learn matplotlib
+          pip install pytest selenium pandas numpy scikit-learn matplotlib seaborn
           
       - name: Run UI Automation Tests (Data Generation)
         run: pytest ui_test.py -v
